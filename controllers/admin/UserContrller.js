@@ -22,7 +22,7 @@ const UserController = {
       const token = JWT.generate({ _id:data[0]._id, username:data[0].username },'60s')
       console.log(token);
       res.send({
-        ok: 1
+        ok: 1,
       })
     }
  
