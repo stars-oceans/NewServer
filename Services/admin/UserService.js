@@ -3,9 +3,9 @@ const UserModel = require('../../models/UserModel')
 
 const UserService = {
     //登录操作 操作数据库 查找操作
-    login: (username, password) => {
+    login: async (username, password) => {
         return UserModel.find({ username, password })
-    }
+    },
     // 注册
     // UserModel.create({
     //   username : 'aabbbbddddd',
@@ -15,5 +15,24 @@ const UserService = {
     //   avatar : 'hhh', //头像
     //   role : '1' //管理员 1, 编辑 2
     //   })
+
+    upload:  ( _id, username, introduction, gender, avatar ) => {
+        console.log('id6666',_id);
+        if(avatar){
+            return UserModel.updateOne({ _id }, {
+                username : username,
+                introduction : introduction,
+                gender : gender,
+                avatar: avatar,
+            })
+        }else{
+            return UserModel.updateOne({ _id }, {
+                username : username,
+                introduction : introduction,
+                gender : gender,
+            })
+        }
+       
+    }
 }
 module.exports = UserService
