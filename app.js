@@ -16,6 +16,7 @@ var app = express();
 // app.set('view engine', 'jade');
 // 各种配置
 app.use(logger('dev'));
+// 配置 post 请求注册中间件
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -51,7 +52,7 @@ app.use((req, res, next) => {
   }
 })
 
-// 注册UserRouter 路由
+//TODO: 注册UserRouter 路由
 app.use(UserRouter)
 
 

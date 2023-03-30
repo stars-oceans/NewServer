@@ -1,4 +1,5 @@
 // 进行操作数据库 操作 models
+// 控制层 C层
 const UserModel = require('../../models/UserModel')
 
 const UserService = {
@@ -33,6 +34,18 @@ const UserService = {
             })
         }
        
-    }
+    },
+
+          // 操作数据库 添加操作
+  adduser: (username, password, gender,introduction,avatar,role) => {
+    return UserModel.create({
+        username : username,
+        password : password ,
+        gender : gender,  // 性别, 0, 1, 2
+        introduction :  introduction,  // 介绍
+        avatar : avatar, //头像
+        role : role //管理员 1, 编辑 2
+    })
+  },
 }
 module.exports = UserService

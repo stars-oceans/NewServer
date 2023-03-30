@@ -8,7 +8,7 @@ const UserType = {
   gender : Number,  // 性别, 0, 1, 2
   introduction : String,  // 介绍
   avatar : String, //头像
-  role : Number //管理员 1, 编辑 2
+  role : Number //管理员 1, 编辑 0
 }
 
 const UserModel =  mongoose.model('user',new Schema(UserType))

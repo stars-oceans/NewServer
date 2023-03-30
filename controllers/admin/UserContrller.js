@@ -1,4 +1,5 @@
 // 这里面是接收前端返回信息
+// 逻辑层  M
 const UserModel = require('../../models/UserModel');
 const UserService = require('../../Services/admin/UserService');
 const JWT = require('../../util/JWT');
@@ -34,7 +35,6 @@ const UserController = {
         }
       })
     }
-
   },
 
   // upload 接口
@@ -42,7 +42,7 @@ const UserController = {
     // console.log(req.file);
     let { username, introduction, gender } = req.body
     // 看是否传有头像,如果有就拼接字符串,如果没有就为 
-    let avatar = req.file?`/avataruploads/${req.file.filename}` : ''
+    let avatar = req.file ? `/avataruploads/${req.file.filename}` : ''
     const token = req.headers.authorization.split(' ')[1]
     let payload = JWT.verify(token)
 
@@ -59,17 +59,17 @@ const UserController = {
           data: {
             username,
             introduction,
-             gender : newgender,
+            gender: newgender,
             avatar
           }
         })
-      }else{
+      } else {
         res.send({
           ok: 1,
           data: {
             username,
             introduction,
-             gender : newgender,
+            gender: newgender,
           }
         })
       }
@@ -77,7 +77,31 @@ const UserController = {
       res.send('修改数据发生错误！')
     }
 
-  }
+  },
+
+
+  // 增加
+  adduser: async (req, res) => {
+    console.log(req.file);
+    let avatar = `/avataruploads/${req.file.filename}`
+    console.log(req.body);
+    const { username, password, gender, introduction, role } = req.body
+    // 增
+    let data = await UserService.adduser(username, password, gender, introduction, avatar, Number(role))
+    if (data) {
+      res.send({
+        ok: 1,
+        data: data
+      })
+    } else {
+      res.send({
+        ok: 0,
+        msg: '出错了'
+      })
+    }
+  },
+
+
 }
 
 module.exports = UserController
