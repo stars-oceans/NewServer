@@ -17,35 +17,47 @@ const UserService = {
     //   role : '1' //管理员 1, 编辑 2
     //   })
 
-    upload:  ( _id, username, introduction, gender, avatar ) => {
-        console.log('id6666',_id);
-        if(avatar){
+    upload: (_id, username, introduction, gender, avatar) => {
+        console.log('id6666', _id);
+        if (avatar) {
             return UserModel.updateOne({ _id }, {
-                username : username,
-                introduction : introduction,
-                gender : gender,
+                username: username,
+                introduction: introduction,
+                gender: gender,
                 avatar: avatar,
             })
-        }else{
+        } else {
             return UserModel.updateOne({ _id }, {
-                username : username,
-                introduction : introduction,
-                gender : gender,
+                username: username,
+                introduction: introduction,
+                gender: gender,
             })
         }
-       
+
     },
 
-          // 操作数据库 添加操作
-  adduser: (username, password, gender,introduction,avatar,role) => {
-    return UserModel.create({
-        username : username,
-        password : password ,
-        gender : gender,  // 性别, 0, 1, 2
-        introduction :  introduction,  // 介绍
-        avatar : avatar, //头像
-        role : role //管理员 1, 编辑 2
-    })
-  },
+    // 操作数据库 添加操作
+    adduser: (username, password, gender, introduction, avatar, role) => {
+        return UserModel.create({
+            username: username,
+            password: password,
+            gender: gender,  // 性别, 0, 1, 2
+            introduction: introduction,  // 介绍
+            avatar: avatar, //头像
+            role: role //管理员 1, 编辑 2
+        })
+    },
+    //   list列表 接口的查询
+    findList: () => {
+        return UserModel.find({}, ['username', 'avatar', 'role'])
+    },
+
+    //  list列表 接口的删除
+
+    delist: (id) => {
+        return UserModel.deleteOne({
+            _id : id
+        })
+    }  
 }
 module.exports = UserService

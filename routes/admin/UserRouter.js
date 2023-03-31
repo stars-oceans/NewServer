@@ -17,6 +17,10 @@ UserRouter.post('/adminapi/user/upload', upload.single('file'), UserController.u
 // TODO: 注意 我们在提交 文件的时候必须配置  这个中间件 这个 file的中间件
 // 添加用户接口
 UserRouter.post('/adminapi/user/adduser', upload.single('file'),UserController.adduser)
+// list 列表的  增删改查
+// 用户裂变table 列表的查询接口
+UserRouter.get('/adminapi/user/list', UserController.list)
+UserRouter.delete('/adminapi/user/list', UserController.delist)
 
 // 导出
 module.exports = UserRouter;

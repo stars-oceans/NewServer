@@ -46,13 +46,13 @@ const UserController = {
     const token = req.headers.authorization.split(' ')[1]
     let payload = JWT.verify(token)
 
-    console.log(payload._id);
+    // console.log(payload._id);
     let _id = payload._id
     let newgender = Number(gender)
     let data = await UserService.upload(_id, username, introduction, newgender, avatar)
 
     if (data) {
-      console.log('已经发发出！');
+      // console.log('已经发发出！');
       if (avatar) {
         res.send({
           ok: 1,
@@ -82,9 +82,9 @@ const UserController = {
 
   // 增加
   adduser: async (req, res) => {
-    console.log(req.file);
+    // console.log(req.file);
     let avatar = `/avataruploads/${req.file.filename}`
-    console.log(req.body);
+    // console.log(req.body);
     const { username, password, gender, introduction, role } = req.body
     // 增
     let data = await UserService.adduser(username, password, gender, introduction, avatar, Number(role))
@@ -101,6 +101,39 @@ const UserController = {
     }
   },
 
+  // list列表 查询接口  M 逻辑层
+  list :async(req, res)=>{
+        let data =  await UserService.findList()
+        if (data) {
+            // console.log(data);
+            res.send({
+              ok : 1,
+              data
+            })
+        }else{
+          res.send({
+            ok : 0,
+            msg : 'list查询 接口出现错误'
+          })
+        }
+  },
+
+  delist : async (req,res)=>{  
+      let { id } = req.query
+      //  console.log(id);
+     const data = await UserService.delist(id)
+      if (data) {
+          res.send({
+            ok : 1,
+            data
+          })
+      }else{
+        res.send({
+          ok : 0,
+          msg : 'list列表的 delist接口出现错'
+        })
+      }
+  }
 
 }
 
