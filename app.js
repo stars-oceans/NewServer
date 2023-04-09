@@ -7,6 +7,8 @@ var logger = require('morgan');
 // 导入路由
 // 导入 UserRouter 路由
 var UserRouter = require('./routes/admin/UserRouter');
+// 导入 NewsRouter 路由
+var NewsRouter = require('./routes/admin/NewsRouter')
 const JWT = require('./util/JWT');
 
 
@@ -27,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
   /adminapi - 后台用的接口
   /webapi   - 企业官网用的
 */
+
 // 检测 前端 token 是否过期 的中间件
 app.use((req, res, next) => {
   // 如果 token 有效,next()
@@ -35,6 +38,7 @@ app.use((req, res, next) => {
     next()
     return
   }
+
   const token = req.headers.authorization.split(' ')[1]
   // console.log(token);
   if (token) {
@@ -52,9 +56,10 @@ app.use((req, res, next) => {
   }
 })
 
-//TODO: 注册UserRouter 路由
-app.use(UserRouter)
 
+//TODO: 登录UserRouter 路由
+app.use(UserRouter)
+app.use(NewsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

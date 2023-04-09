@@ -4,18 +4,21 @@ const UserModel = require('../../models/UserModel')
 
 const UserService = {
     //登录操作 操作数据库 查找操作
+    // 注册  只需要两个字段，其他为默认或空
+    addnewuser: async (username, password) => {
+        return UserModel.create({
+            username: username,
+            password: password,
+            gender: null,  // 性别, 0, 1, 2
+            introduction: '',  // 介绍
+            avatar: '', //头像
+            role: '0' //管理员 1, 编辑 0
+        })
+    },
+    // 登录
     login: async (username, password) => {
         return UserModel.find({ username, password })
     },
-    // 注册
-    // UserModel.create({
-    //   username : 'aabbbbddddd',
-    //   password : '123456666777777777777',
-    //   gender : 1,  // 性别, 0, 1, 2
-    //   introduction : '你好',  // 介绍
-    //   avatar : 'hhh', //头像
-    //   role : '1' //管理员 1, 编辑 2
-    //   })
 
     upload: (_id, username, introduction, gender, avatar) => {
         console.log('id6666', _id);
@@ -51,13 +54,24 @@ const UserService = {
     findList: () => {
         return UserModel.find({}, ['username', 'avatar', 'role'])
     },
-
+    // 获取对话框信息
+    findListPsw: (id) => {
+        return UserModel.find({ _id: id }, ['username', 'password', 'role', 'introduction'])
+    },
+    // 修改用户信息
+    findListUpdata: (id, username, password, role, introduction) => {
+        return UserModel.updateOne({ _id: id }, {
+            username: username,
+            password: password,
+            role: role,
+            introduction: introduction,
+        })
+    },
     //  list列表 接口的删除
-
     delist: (id) => {
         return UserModel.deleteOne({
-            _id : id
+            _id: id
         })
-    }  
+    }
 }
 module.exports = UserService

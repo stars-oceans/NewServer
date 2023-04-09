@@ -1,10 +1,34 @@
 // 这里面是接收前端返回信息
 // 逻辑层  M
-const UserModel = require('../../models/UserModel');
+
 const UserService = require('../../Services/admin/UserService');
 const JWT = require('../../util/JWT');
 
 const UserController = {
+    // 注册接口
+    addnewuser : async (req, res)=>{
+        console.log(req.body);
+        let { username, password } = req.body
+        res.send({
+          ok : 1
+        })
+
+
+       let  data = await UserService.addnewuser(username, password )
+      if(data){
+        res.send({
+          ok:1,
+          data
+        })
+      }else{
+        console.log('addnewuser 接口出现错误！');
+        res.send({
+          ok:0,
+          msg : 'addnewuser 接口出现错误！'
+        })
+      }
+    },
+
   // login 接口
   login: async function (req, res) {
     // console.log(req.body);
@@ -103,6 +127,7 @@ const UserController = {
 
   // list列表 查询接口  M 逻辑层
   list :async(req, res)=>{
+    console.log();
         let data =  await UserService.findList()
         if (data) {
             // console.log(data);
@@ -117,7 +142,42 @@ const UserController = {
           })
         }
   },
-
+  // 获取密码在内的信息
+  listPsw :async(req, res)=>{
+    // console.log(req.params.id);
+        let data =  await UserService.findListPsw(req.params.id)
+        if (data) {
+            res.send({
+              ok : 1,
+              data
+            })
+        }else{
+          res.send({
+            ok : 0,
+            msg : 'list查询 接口出现错误'
+          })
+        }
+  },
+  // 编辑用户接口
+  listUpdata : async(req, res)=>{
+    let id = req.params.id
+    let {username,password, role, introduction} = req.body
+    console.log(id);
+        let data =  await UserService.findListUpdata(id, username,password, role, introduction)
+        console.log(data);
+         if (data) {
+            res.send({
+              ok : 1,
+              data
+            })
+        }else{
+          res.send({
+            ok : 0,
+            msg : 'list查询 接口出现错误'
+          })
+        }
+  },
+  // 删除用户
   delist : async (req,res)=>{  
       let { id } = req.query
       //  console.log(id);
