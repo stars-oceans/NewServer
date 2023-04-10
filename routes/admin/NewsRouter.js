@@ -24,8 +24,7 @@ NewsRouter.post('/adminapi/news/publish', NewsController.publish)
 NewsRouter.get('/adminapi/news/finditem', NewsController.finditem)
 
 // 修改 新闻的数据
-NewsRouter.post('/adminapi/news/updataNews', NewsController.updataNews)
-
+NewsRouter.post('/adminapi/news/updataNews',upload.single('file'),NewsController.updataNews)
 
 // 删除新闻列表的单项
 NewsRouter.get('/adminapi/news/deleteitem', NewsController.deleteitem)

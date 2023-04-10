@@ -17,9 +17,7 @@ const NewsController = {
       res.send({ ok: 1, msg: '新闻已创建' })
     } else {
       res.send({ ok: 0, msg: '添加新闻接口错误' })
-
     }
-
   },
 
   // 查询新闻列表
@@ -52,7 +50,7 @@ const NewsController = {
     // console.log(id);
     const data = await NewsService.finditem(id)
     // res.send({ok : 1})
-    // console.log(data);
+    console.log(data);
     if (data) {
       res.send({ ok: 1, data })
     } else {
@@ -62,21 +60,23 @@ const NewsController = {
     }
   },
 
+  // 修改新闻
   updataNews: async (req, res) => {
-    // console.log(req.body);
+    // console.log(req.file);
     const { _id, title, content, category, cover, isPublish } = req.body
+    console.log(cover);
+    const newcover = req.file ? `/Newsuploads/${req.file.filename} ` : cover
     const newTime = new Date()
-    const data = await NewsService.updataNews(_id, title, content, category, cover, isPublish, newTime)
+    const data = await NewsService.updataNews(_id, title, content, category, newcover,isPublish, newTime)
     if (data) {
       res.send({
         ok: 1,
-        data
       })
     }
   },
   // 删除单项的数据
   deleteitem: async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     const { id } = req.query
     const data = await NewsService.deleteitem(id)
     if (data) {
