@@ -124,6 +124,8 @@ const UserController = {
   list: async (req, res) => {
     console.log();
     let data = await UserService.findList()
+    console.log(data);
+    
     if (data) {
       // console.log(data);
       res.send({

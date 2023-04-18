@@ -64,7 +64,7 @@ const NewsController = {
   updataNews: async (req, res) => {
     // console.log(req.file);
     const { _id, title, content, category, cover, isPublish } = req.body
-    console.log(cover);
+    // console.log(cover);
     const newcover = req.file ? `/Newsuploads/${req.file.filename} ` : cover
     const newTime = new Date()
     const data = await NewsService.updataNews(_id, title, content, category, newcover,isPublish, newTime)

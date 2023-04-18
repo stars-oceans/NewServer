@@ -28,7 +28,7 @@ const MewsService = {
 
       // 点击新编按钮获取单项数据
       finditem: (id) => {
-            return NewsModel.findOne({ _id : id }, ['title','content','category','cover','isPublish'])
+            return NewsModel.findOne({ _id : id }, ['title','content','category','cover','isPublish','editTime'])
       },
 
       // 修改新闻

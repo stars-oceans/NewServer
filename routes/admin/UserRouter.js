@@ -1,6 +1,7 @@
 //  路由层 接口  V层
 var express = require('express');
 var UserRouter = express.Router();
+
 // 导入 controllers 文件夹里面的 UserController
 const UserController = require('../../controllers/admin/UserContrller');
 /* GET home page. */
@@ -8,7 +9,7 @@ const UserController = require('../../controllers/admin/UserContrller');
 
 //TODO: 图片上传的中间件 
 const multer  = require('multer')
-const upload = multer({ dest: 'public/avataruploads/' })
+const upload = multer({ dest: 'public/avataruploads/'})
 
 // 注册接口
 UserRouter.post('/adminapi/user/addnewuser',UserController.addnewuser)
@@ -22,9 +23,9 @@ UserRouter.post('/adminapi/user/adduser', upload.single('file'),UserController.a
 // list 列表的  增删改查
 // 用户裂变table 列表的查询接口
 UserRouter.get('/adminapi/user/list', UserController.list)
-// 获取对话框信息
+// 获取对话框信息 
 UserRouter.get('/adminapi/user/listPsw/:id', UserController.listPsw)
-// 更新对话框内容 
+// 更新对话框内容
 // 获取对话框信息
 UserRouter.put('/adminapi/user/listUpdata/:id', UserController.listUpdata)
 
