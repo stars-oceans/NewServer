@@ -23,7 +23,6 @@ const NewsController = {
   // 查询新闻列表
   findnews: async (req, res) => {
     let data = await NewsService.findnews()
-
     if (data) {
       res.send({ ok: 1, data })
     } else {

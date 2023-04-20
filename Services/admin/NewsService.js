@@ -1,6 +1,6 @@
 const NewsModel = require('../../models/NewsModel')
 
-const MewsService = {
+const NewsService = {
       // 添加新闻
       addNews: (title, content, category, isPublish, cover, editTime) => {
             // console.log(title,content,category,isPublish,cover);
@@ -49,4 +49,4 @@ const MewsService = {
 }
 
 
-module.exports = MewsService
+module.exports = NewsService

@@ -4,12 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// JWT
+const JWT = require('./util/JWT');
+
 // 导入路由
 // 导入 UserRouter 路由
 var UserRouter = require('./routes/admin/UserRouter');
 // 导入 NewsRouter 路由
 var NewsRouter = require('./routes/admin/NewsRouter')
-const JWT = require('./util/JWT');
+// 导入 ProductRouter 路由
+const ProductRouter = require('./routes/admin/ProductRouter');
 
 
 var app = express();
@@ -60,6 +64,7 @@ app.use((req, res, next) => {
 //TODO: 登录UserRouter 路由
 app.use(UserRouter)
 app.use(NewsRouter)
+app.use(ProductRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
