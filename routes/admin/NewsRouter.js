@@ -11,7 +11,9 @@ const NewsController = require('../../controllers/admin/NewsContrller');
 //TODO: 图片上传的中间件 
 const multer  = require('multer');
 const upload = multer({ dest: 'public/Newsuploads/' })
-
+NewsRouter.get('/ap',(req, res)=>{
+    res.send('ok')
+})
 // 添加新闻
 NewsRouter.post('/adminapi/news/add', upload.single('file'),NewsController.addNews)
 // 查询新闻列表

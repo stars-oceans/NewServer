@@ -72,10 +72,6 @@ const ProductContrller = {
       }
   }
 
-
-
-
-
 }
 
 module.exports = ProductContrller

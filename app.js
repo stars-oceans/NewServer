@@ -15,7 +15,9 @@ var NewsRouter = require('./routes/admin/NewsRouter')
 // 导入 ProductRouter 路由
 const ProductRouter = require('./routes/admin/ProductRouter');
 
+// 导入 web 的路由
 
+const webNewsRouter = require('./routes/web/NewsRouter')
 var app = express();
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +30,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// 必须注册在 管理系统的 jwt 前面 不然要走 jwt
+app.use(webNewsRouter)
+
+// 借用一下admin 端的接口
+app.use(ProductRouter)
 
 /* 
   /adminapi - 后台用的接口
@@ -65,6 +73,8 @@ app.use((req, res, next) => {
 app.use(UserRouter)
 app.use(NewsRouter)
 app.use(ProductRouter)
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
